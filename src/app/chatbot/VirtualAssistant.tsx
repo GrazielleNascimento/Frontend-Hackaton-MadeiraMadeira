@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import LogoIguanafix from '@/components/LogoIguadafix';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -106,7 +107,8 @@ export function VirtualAssistant() {
     <div className="fixed bottom-6 right-6 z-50">
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 w-96 bg-white rounded-lg shadow-2xl flex flex-col h-96 border border-gray-200">
+        <div className="mb-4 w-96 bg-white rounded-lg shadow-2xl flex justify-center items-center min-h-screen flex-col h-96 border border-gray-200">
+          <LogoIguanafix></LogoIguanafix>
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-lg flex justify-between items-center">
             <div>

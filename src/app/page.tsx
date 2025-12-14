@@ -1,11 +1,13 @@
 'use client';
 
+import LogoIguanafix from '@/components/LogoIguadafix';
 import Link from 'next/link';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="max-w-2xl w-full text-center">
+      <div className="flex flex-col justify-center items-center min-h-screen max-w-2xl w-full text-center">
+        <LogoIguanafix></LogoIguanafix>
         <h1 className="text-5xl font-black text-gray-900 mb-4">
           Bem-vindo ao Cadastro de Prestadores
         </h1>
