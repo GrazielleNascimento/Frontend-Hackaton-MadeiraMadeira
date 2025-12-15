@@ -17,7 +17,7 @@ export function VirtualAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: '👋 Olá! Sou a **Iamanos**, sua assistente virtual. Como posso ajudá-lo hoje?',
+      content: '👋 Olá! Sou a Iguana, sua assistente virtual. Como posso ajudá-lo hoje?',
       timestamp: new Date(),
     },
   ]);
@@ -31,6 +31,29 @@ export function VirtualAssistant() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !token) return;
+
+    // TODO: Implementar upload real
+    console.log('Arquivo selecionado:', file.name);
+    
+    // Por enquanto, apenas simular
+    setMessages(prev => [
+      ...prev,
+      {
+        role: 'user',
+        content: `📎 Arquivo enviado: ${file.name}`,
+        timestamp: new Date(),
+      },
+      {
+        role: 'assistant',
+        content: '✅ Arquivo recebido! Quando terminar de enviar todos os documentos, digite "Documentos enviados".',
+        timestamp: new Date(),
+      },
+    ]);
+  };
 
   const handleSendMessage = async () => {
     if (!input.trim() || loading || !token) return;
@@ -95,7 +118,108 @@ export function VirtualAssistant() {
     }, 100);
   };
 
+  const handleQuickAction = async (action: string) => {
+    // Enviar ação diretamente
+    if (loading || !token) return;
+    
+    setMessages(prev => [
+      ...prev,
+      {
+        role: 'user',
+        content: action,
+        timestamp: new Date(),
+      },
+    ]);
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/chatbot/chat`,
+        {
+          message: action,
+          section: 'dashboard',
+          sectionTitle: 'Assistente Virtual',
+          context: {},
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: response.data.message || response.data.response,
+          timestamp: new Date(),
+        },
+      ]);
+    } catch (error: any) {
+      console.error('Erro ao enviar mensagem:', error);
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: '❌ Desculpe, ocorreu um erro. Tente novamente mais tarde.',
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Detectar se deve mostrar botões de ação
+  const getQuickActions = () => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role !== 'assistant') return [];
+
+    const content = lastMessage.content.toLowerCase();
+    
+    // Se pede confirmação
+    if (content.includes('confirmar')) {
+      return [
+        { label: '✅ Confirmar', action: 'confirmar' },
+        { label: '🔙 Voltar', action: 'etapa anterior' },
+      ];
+    }
+
+    // Se mostra opções de etapas
+    if (content.includes('etapa 1') && content.includes('ajustar')) {
+      return [
+        { label: '✅ Confirmar', action: 'confirmar' },
+        { label: '📝 Ajustar Etapa 1', action: 'etapa 1' },
+      ];
+    }
+
+    if (content.includes('etapa 2') && content.includes('ajustar')) {
+      return [
+        { label: '✅ Confirmar', action: 'confirmar' },
+        { label: '📝 Ajustar Etapa 2', action: 'etapa 2' },
+      ];
+    }
+
+    if (content.includes('etapa 3') && content.includes('ajustar')) {
+      return [
+        { label: '✅ Confirmar', action: 'confirmar' },
+        { label: '📝 Ajustar Etapa 3', action: 'etapa 3' },
+      ];
+    }
+
+    if (content.includes('etapa 4') && content.includes('ajustar')) {
+      return [
+        { label: '✅ Confirmar', action: 'confirmar' },
+        { label: '📝 Ajustar Etapa 4', action: 'etapa 4' },
+      ];
+    }
+
+    return [];
+  };
+
   const quickQuestions = [
+    '🚀 Quero começar meu cadastro',
     '🤔 Como funciona o cadastro?',
     '📄 Quais documentos preciso?',
     '⏱️ Qual o prazo de aprovação?',
@@ -110,7 +234,7 @@ export function VirtualAssistant() {
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-lg flex justify-between items-center">
             <div>
-              <h3 className="font-bold text-lg">Iamanos</h3>
+              <h3 className="font-bold text-lg">Iguana</h3>
               <p className="text-xs opacity-90">Assistente Virtual</p>
             </div>
             <button
@@ -157,6 +281,21 @@ export function VirtualAssistant() {
               </div>
             ))}
 
+            {/* Botões de ação rápida */}
+            {!loading && getQuickActions().length > 0 && (
+              <div className="flex gap-2 justify-start">
+                {getQuickActions().map((action, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleQuickAction(action.action)}
+                    className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs font-medium transition shadow-sm"
+                  >
+                    {action.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-white border border-gray-200 px-4 py-2 rounded-lg rounded-bl-none">
@@ -175,6 +314,21 @@ export function VirtualAssistant() {
           {/* Input */}
           <div className="border-t border-gray-200 p-3 bg-white rounded-b-lg">
             <div className="flex gap-2">
+              <input
+                id="fileUpload"
+                type="file"
+                accept="image/*,.pdf"
+                onChange={handleFileUpload}
+                className="hidden"
+              />
+              <button
+                onClick={() => document.getElementById('fileUpload')?.click()}
+                disabled={loading}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:bg-gray-100 text-xl transition"
+                title="Enviar arquivo"
+              >
+                📎
+              </button>
               <input
                 type="text"
                 value={input}

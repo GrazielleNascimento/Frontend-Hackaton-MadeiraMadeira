@@ -9,11 +9,9 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [step, setStep] = useState(1); // 1 = cadastro simples, 2 = chatbot
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // Etapa 1: Cadastro Simples
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -27,7 +25,7 @@ export default function RegisterPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleStep1Submit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -53,14 +51,14 @@ export default function RegisterPage() {
         password: formData.password,
         cpf: formData.cpf,
       });
-   console.log('[register] response.data:', response.data);
+      console.log('[register] response.data:', response.data);
+      
       // Salvar token e ID do provider
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('providerId', response.data.id);
       
-
-      // Ir para Etapa 2 (Chatbot)
-      setStep(2);
+      // Ir direto para o Dashboard
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'Erro ao registrar');
     } finally {
@@ -68,12 +66,11 @@ export default function RegisterPage() {
     }
   };
 
-  if (step === 1) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Cadastro</h1>
-          <p className="text-gray-600 mb-6">Etapa 1 de 2 - Informações Básicas</p>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Cadastro</h1>
+        <p className="text-gray-600 mb-6">Crie sua conta de prestador</p>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
@@ -81,7 +78,7 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <form onSubmit={handleStep1Submit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Nome Completo
@@ -157,7 +154,7 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-medium transition"
             >
-              {loading ? 'Carregando...' : 'Continuar para Etapa 2'}
+              {loading ? 'Carregando...' : 'Criar Conta'}
             </button>
           </form>
 
@@ -170,20 +167,4 @@ export default function RegisterPage() {
         </div>
       </div>
     );
-  }
-
-  // Etapa 2 será renderizada em outro componente
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Etapa 2: Dados Adicionais</h1>
-        <p className="text-gray-600 mb-6">Converse com nosso assistente para completar seu cadastro</p>
-        
-        {/* Aqui virá o componente ChatBot */}
-        <div className="bg-gray-100 p-4 rounded-lg text-center text-gray-600">
-          Componente ChatBot será renderizado aqui...
-        </div>
-      </div>
-    </div>
-  );
 }
