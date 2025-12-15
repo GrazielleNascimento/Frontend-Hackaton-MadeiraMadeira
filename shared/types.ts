@@ -1,6 +1,3 @@
-/**
- * Tipos compartilhados entre frontend e backend
- */
 
 export interface Provider {
   id: string;

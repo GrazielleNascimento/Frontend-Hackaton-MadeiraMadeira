@@ -1,4 +1,4 @@
-// File: C:\Users\plugify\Music\m5\Frontendprivate\src\app\register\page.tsx
+// File: /home/ingrid/Hackathon/Frontend/src/app/register/page.tsx
 import * as entry from '../../../../src/app/register/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
