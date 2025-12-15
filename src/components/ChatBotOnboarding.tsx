@@ -25,8 +25,8 @@ const SECTIONS = [
   {
     id: '2',
     title: 'Informações Pessoais',
-    description: 'Endereço e dados pessoais',
-    fields: ['rg', 'estado', 'cidade', 'cep', 'bairro', 'logradouro', 'numero', 'complemento'],
+    description: 'Endereço, telefone e dados pessoais',
+    fields: ['rg', 'telefone', 'estado', 'cidade', 'cep', 'bairro', 'logradouro', 'numero', 'complemento'],
   },
   {
     id: '3',
