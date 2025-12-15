@@ -13,6 +13,7 @@ export default function EditProfilePage() {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
+    telefone: '',
     rg: '',
     estado: '',
     cidade: '',
@@ -35,6 +36,7 @@ export default function EditProfilePage() {
         setFormData({
           nome: response.data.name || response.data.nome || '',
           email: response.data.email || '',
+          telefone: response.data.telefone || '',
           rg: response.data.rg || '',
           estado: response.data.estado || '',
           cidade: response.data.cidade || '',
@@ -177,11 +179,11 @@ export default function EditProfilePage() {
                   </label>
                   <input
                     type="text"
-                    name="rg"
-                    value={formData.rg}
+                    name="telefone"
+                    value={formData.telefone}
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="123456789"
+                    placeholder="(11) 99999-9999"
                   />
                 </div>
               </div>
