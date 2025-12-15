@@ -113,11 +113,24 @@ O projeto utiliza Axios para comunicação com o backend. Os principais serviço
 - ```npm run type-check:``` Verifica tipos TypeScript
 
 ## 📸 Imagens do Projeto
-<img src="./public/iPhone-13-PRO-localhost.png" alt="Imagem no display movel mobile">
+## 📸 Imagens do Projeto
+
+<img 
+  width="296" 
+  height="490" 
+  src="https://github.com/user-attachments/assets/607449a1-89d5-4957-9102-51e0b3a961bc"
+  alt="Imagem do projeto em display mobile"
+/>
 
 ###
 
-<img src="./public/Macbook-Air-6z4pkrjv-3000.brs.devtunnels.ms.png" alt="Imagem no display em desktop">
+<img 
+  width="835" 
+  height="485" 
+  src="https://github.com/user-attachments/assets/f4f8b376-01da-45f2-a5cb-cda472719edc"
+  alt="Imagem do projeto em display desktop"
+/>
+
 
 ## 📝 Pré-requisitos
 Para utlizar essa aplicação com o funcionanmento esperado é necessario baixar alguns requesitos primeiro.
