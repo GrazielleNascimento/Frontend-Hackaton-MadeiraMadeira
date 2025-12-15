@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
+import LogoIguanafix from '@/components/LogoIguadafix';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -66,11 +67,21 @@ export default function RegisterPage() {
     }
   };
 
+<<<<<<< HEAD
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Cadastro</h1>
         <p className="text-gray-600 mb-6">Crie sua conta de prestador</p>
+=======
+  if (step === 1) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+        <div className="flex flex-col justify-center items-center min-h-screen bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+          <LogoIguanafix></LogoIguanafix>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Cadastro</h1>
+          <p className="text-gray-600 mb-6">Etapa 1 de 2 - Informações Básicas</p>
+>>>>>>> remotes/origin/img-iguanafix
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">

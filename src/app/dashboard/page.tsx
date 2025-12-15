@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { authService } from '@/services/api';
 import Link from 'next/link';
 import { VirtualAssistant } from '@/app/chatbot/VirtualAssistant';
+import LogoIguanafix from '@/components/LogoIguadafix';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
@@ -48,7 +49,8 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col min-h-screen justify-between items-center mb-8">
+          <LogoIguanafix></LogoIguanafix>
           <div>
             <h1 className="text-4xl font-black text-gray-900">Dashboard</h1>
             <p className="text-gray-600 mt-2">Bem-vindo, {user?.name || 'Prestador'}!</p>

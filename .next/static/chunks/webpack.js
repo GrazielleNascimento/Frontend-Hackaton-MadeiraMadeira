@@ -192,7 +192,11 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
+<<<<<<< HEAD
 /******/ 		__webpack_require__.h = function() { return "12e26cce7dde0c4c"; }
+=======
+/******/ 		__webpack_require__.h = function() { return "cad07b891715ddca"; }
+>>>>>>> remotes/origin/img-iguanafix
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

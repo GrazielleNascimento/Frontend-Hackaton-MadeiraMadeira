@@ -1,6 +1,10 @@
 {
-  "/register/page": "app/register/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
+<<<<<<< HEAD
+=======
+  "/register/page": "app/register/page.js",
+>>>>>>> remotes/origin/img-iguanafix
   "/dashboard/page": "app/dashboard/page.js"
 }

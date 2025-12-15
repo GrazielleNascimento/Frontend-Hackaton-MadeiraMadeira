@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ProviderLoginSchema } from '../../../shared/schemas';
 import { authService } from '@/services/api';
 import Link from 'next/link';
+import LogoIguanafix from '@/components/LogoIguadafix';
 
 export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,7 +39,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full card">
+      <div className="flex flex-col justify-center items-center min-h-screen max-w-md w-full card">
+        <LogoIguanafix></LogoIguanafix>
         <h1 className="text-3xl font-black text-gray-900 mb-2">Bem-vindo de Volta</h1>
         <p className="text-gray-600 mb-6">Faça login para acessar sua conta</p>
 
