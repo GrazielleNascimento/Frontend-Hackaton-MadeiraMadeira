@@ -113,7 +113,6 @@ O projeto utiliza Axios para comunicação com o backend. Os principais serviço
 - ```npm run type-check:``` Verifica tipos TypeScript
 
 ## 📸 Imagens do Projeto
-## 📸 Imagens do Projeto
 
 <img 
   width="296" 
